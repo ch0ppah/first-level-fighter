@@ -1,7 +1,7 @@
 [project]
 name = "first-level-fighter"
 version = "0.1.0"
-description = "Add your description here"
+description = "DND 5E first-level character sheet generator"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
