@@ -1,12 +1,12 @@
 import readchar
-from sys import exit
 from readchar import key
+#lowkey dont think i actually need these lol
+
 from generate import generate
 
 
 # 0: typing "QUIT" at any point will exit the program. All other input is case-insensitive.
 # 1: Roll random numbers to generate stats and species
-# 2: Present the stat spread to the user. If they want to reroll, type 'reroll' (case unsensitive). Otherwise, type the name of the class to use.
 # - Invalid inputs should reprompt the user
 # - Present the user with a list of valid class names to choose
 # 3: Use the given class to get abilities and starting equipment list
@@ -22,21 +22,10 @@ from generate import generate
 # k = readchar.readkey()
 # if k == key.ENTER:
 def main():
-    print("Welcome to First Level Fighter (FLF)!")
+    print("--- FIRST LEVEL FIGHTER ---")
+    print("Type 'QUIT' to quit the program at any time.")
     print()
-    check_begin()
-
-def check_begin():
-    print("Press ENTER to begin generating a sheet.")
-    print("Press ESCAPE to quit the program at any time.")
-    k = readchar.readkey()
-    if k == key.ESC or k == key.ESC_2:
-        exit()
-    elif k == key.ENTER:
-        generate()
-    else:
-        print("Invalid key input detected!")
-        check_begin()
+    generate()
 
 if __name__ == "__main__":
     main()
