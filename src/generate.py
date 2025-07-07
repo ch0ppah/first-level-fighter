@@ -10,6 +10,7 @@ from sys import exit
 # spread is independent, name is species dependent
 
 def generate():
+    STR, DEX, CON, INT, WIS, CHA = 0, 1, 2, 3, 4, 5
     # This should read the files into a 2D-arrays that I can then index using
     # pseudo-random numbers
     species, name = generate_name()
@@ -19,17 +20,25 @@ def generate():
     equipment = get_equipment(chosen_class)
     prompt_for_asi()
     allocate_asi(stats)
+    stat_mods = [statmod(stats[STR]),
+                 statmod(stats[DEX]),
+                 statmod(stats[CON]),
+                 statmod(stats[INT]),
+                 statmod(stats[WIS]),
+                 statmod(stats[CHA])]
 
 # Generates a species and name to use
 # returns both in a tuple
 def generate_name():
     with open('../content/names.csv') as file:
         names = list(map(lambda line: line.strip().split(','), file))
-
+    
+    num_species = len(names[0]) - 1
+    num_names = len(names[0][0]) - 1
     # Rolls number for species
-    species_index = random.randrange(0, 8)
+    species_index = random.randrange(0, num_species)
     # Rolls number for name
-    name_index = random.randrange(1,11)
+    name_index = random.randrange(1,num_names)
 
     species = names[species_index]
     name = names[species_index][name_index]
@@ -42,32 +51,30 @@ def generate_name():
 # returns a list of integers
 def generate_stats():
     stats = [roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat()]
-    strr, dex, con, intt, wis, cha = stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]
+    STR, DEX, CON, INT, WIS, CHA = stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]
 
-    print(f"You rolled the following stats:")
-    print(f"Strength     (STR): {strr}")
-    print(f"Dexterity    (DEX): {dex}")
-    print(f"Constitution (CON): {con}")
-    print(f"Intelligence (INT): {intt}")
-    print(f"Wisdom       (WIS): {wis}")
-    print(f"Charisma     (CHA): {cha}")
+    print("You rolled the following stats:")
+    print(f"Strength     (STR): {STR}")
+    print(f"Dexterity    (DEX): {DEX}")
+    print(f"Constitution (CON): {CON}")
+    print(f"Intelligence (INT): {INT}")
+    print(f"Wisdom       (WIS): {WIS}")
+    print(f"Charisma     (CHA): {CHA}")
     print()
     return stats
 
 # helper function to 'roll' for a stat
 def roll_stat():
-    die_1 = random.randrange(1, 6)
-    die_2 = random.randrange(1, 6)
-    die_3 = random.randrange(1, 6)
-    die_4 = random.randrange(1, 6)
+    lowest_roll, highest_roll = 1, 6
+    die_1 = random.randrange(lowest_roll, highest_roll)
+    die_2 = random.randrange(lowest_roll, highest_roll)
+    die_3 = random.randrange(lowest_roll, highest_roll)
+    die_4 = random.randrange(lowest_roll, highest_roll)
 
     # Puts all die rolls into a list
-    dice = [die_1, die_2, die_3, die_4]
-    # Sorts list, placing lowest roll in the first index
-    dice = sorted(dice)
-    # Slices the lowest (first index) roll out of the list, 'dropping' it
-    dice = dice[1:]
-    return dice[1] + dice[2] + dice[3]
+    top_3_dice = sorted([die_1, die_2, die_3, die_4])[1:]
+
+    return top_3_dice[1] + top_3_dice[2] + top_3_dice[3]
 
 # Helper function for calculating stat modifiers
 # takes a stat (int) and returns its mod (string
