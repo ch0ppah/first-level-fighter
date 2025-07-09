@@ -39,3 +39,10 @@ class TestGenerate(unittest.TestCase):
             self.assertEqual(abilities, abilities_row, f"Error pulling abilities for the {chosen_class} class")
             equipment_row = next(row for row in equipment_list if row[0] == chosen_class)[1:]
             self.assertEqual(equipment, equipment_row, f"Error pulling equipment for the {chosen_class} class")
+
+    def test_roll_stats(self):
+        for i in range(500):
+            stat = roll_stat()
+            self.assertGreaterEqual(stat, 3, f"Rolled stat ({stat}) is not greater than or equal to 3")
+            self.assertLessEqual(stat, 18, f"Rolled stat ({stat}) is not less than or equal to 18")
+            i += 1
