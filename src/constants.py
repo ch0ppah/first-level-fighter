@@ -1,0 +1,12 @@
+STR = 0
+DEX = 1
+CON = 2
+INT = 3
+WIS = 4
+CHA = 5
+
+ROLL_LOWER_BOUND = 1
+ROLL_HIGHER_BOUND = 7
+
+PLUS_2 = 2
+PLUS_1 = 1

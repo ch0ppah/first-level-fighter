@@ -1,8 +1,12 @@
 import random
 from sys import exit
+from constants import (
+    STR, DEX, CON, INT, WIS, CHA,
+    ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND,
+    PLUS_2, PLUS_1
+)
 
 def generate():
-    STR, DEX, CON, INT, WIS, CHA = 0, 1, 2, 3, 4, 5
     species, name = generate_name()
     stats = generate_stats()
     classes_list = show_classes()
@@ -38,32 +42,25 @@ def generate_name():
 
 def generate_stats():
     stats = [roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat()]
-    STR, DEX, CON, INT, WIS, CHA = stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]
+    STR_roll, DEX_roll, CON_roll, INT_roll, WIS_roll, CHA_roll = stats[STR], stats[DEX], stats[CON], stats[INT], stats[WIS], stats[CHA]
 
     print("You rolled the following stats:")
-    print(f"Strength     (STR): {STR}")
-    print(f"Dexterity    (DEX): {DEX}")
-    print(f"Constitution (CON): {CON}")
-    print(f"Intelligence (INT): {INT}")
-    print(f"Wisdom       (WIS): {WIS}")
-    print(f"Charisma     (CHA): {CHA}")
+    print(f"Strength     (STR): {STR_roll}")
+    print(f"Dexterity    (DEX): {DEX_roll}")
+    print(f"Constitution (CON): {CON_roll}")
+    print(f"Intelligence (INT): {INT_roll}")
+    print(f"Wisdom       (WIS): {WIS_roll}")
+    print(f"Charisma     (CHA): {CHA_roll}")
     print()
     return stats
 
 def roll_stat():
-    lowest_roll, highest_roll = 1, 7
-    die_1 = random.randrange(lowest_roll, highest_roll)
-    die_2 = random.randrange(lowest_roll, highest_roll)
-    die_3 = random.randrange(lowest_roll, highest_roll)
-    die_4 = random.randrange(lowest_roll, highest_roll)
+    die_1 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
+    die_2 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
+    die_3 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
+    die_4 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
 
-    # Puts all die rolls into a list
     top_3_dice = sorted([die_1, die_2, die_3, die_4])[1:]
-    # print("-----------DEBUGGING MESSAGES-----------")
-    # print(f"top_3_dice[0]: {top_3_dice[0]}")
-    # print(f"top_3_dice[1]: {top_3_dice[1]}")
-    # print(f"top_3_dice[2]: {top_3_dice[2]}")
-    # print(f"TOTAL: {top_3_dice[0] + top_3_dice[1] + top_3_dice[2]}")
     return top_3_dice[0] + top_3_dice[1] + top_3_dice[2]
 
 def statmod(stat):
@@ -102,7 +99,6 @@ def show_classes():
 # Might be the most dogshit part of this project
 # If anyone sees this function and wants to share a better way to accomplish this please let me know
 def allocate_asi(stats):
-    STR, DEX, CON, INT, WIS, CHA = 0, 1, 2, 3, 4, 5
     stat_names = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
     asis = input_check_quit().split()
     
@@ -121,9 +117,9 @@ def allocate_asi(stats):
 
     if len(asis) == 2:
         for i in range(2):
-            increment_amount = 2
+            increment_amount = PLUS_2
             if i == 1:
-                increment_amount = 1
+                increment_amount = PLUS_1
             match asis[i].upper():
                 case "STR":
                     stats[STR] += increment_amount
@@ -145,7 +141,7 @@ def allocate_asi(stats):
         return stats
             
     elif len(asis) == 3:
-        increment_amount = 1
+        increment_amount = PLUS_1
         for stat in asis:
             match stat.upper():
                 case "STR":
