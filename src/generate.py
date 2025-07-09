@@ -1,9 +1,10 @@
 import random
 from sys import exit
 from constants import (
-    STR, DEX, CON, INT, WIS, CHA,
-    ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND,
-    PLUS_2, PLUS_1
+    STR_INDEX, DEX_INDEX, CON_INDEX, INT_INDEX, WIS_INDEX, CHA_INDEX,
+    ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND, SPECIES, PLUS_2, PLUS_1,
+    REMOVE_CLASS_NAME, REMOVE_SPECIES_NAME, REMOVE_LOWEST_DIE,
+    DIE_1_INDEX, DIE_2_INDEX, DIE_3_INDEX
 )
 
 def generate():
@@ -15,12 +16,12 @@ def generate():
     equipment = get_equipment(chosen_class)
     prompt_for_asi()
     allocate_asi(stats)
-    stat_mods = [statmod(stats[STR]),
-                 statmod(stats[DEX]),
-                 statmod(stats[CON]),
-                 statmod(stats[INT]),
-                 statmod(stats[WIS]),
-                 statmod(stats[CHA])]
+    stat_mods = [statmod(stats[STR_INDEX]),
+                 statmod(stats[DEX_INDEX]),
+                 statmod(stats[CON_INDEX]),
+                 statmod(stats[INT_INDEX]),
+                 statmod(stats[WIS_INDEX]),
+                 statmod(stats[CHA_INDEX])]
     
     return [species, name, stats, stat_mods, chosen_class, abilities, equipment]
 
@@ -31,19 +32,20 @@ def generate_name():
     num_species = len(names)
     species_index = random.randrange(num_species)
     num_names = len(names[species_index])
-    name_index = random.randrange(1, num_names)
+    name_index = random.randrange(REMOVE_SPECIES_NAME, num_names)
 
-    species = names[species_index][0]
+    species = names[species_index][SPECIES]
     name = names[species_index][name_index]
-
+    print("------------------------------")
     print(f"You are {name}, the {species}.")
     print()
     return species, name
 
 def generate_stats():
     stats = [roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat()]
-    STR_roll, DEX_roll, CON_roll, INT_roll, WIS_roll, CHA_roll = stats[STR], stats[DEX], stats[CON], stats[INT], stats[WIS], stats[CHA]
+    STR_roll, DEX_roll, CON_roll, INT_roll, WIS_roll, CHA_roll = stats[STR_INDEX], stats[DEX_INDEX], stats[CON_INDEX], stats[INT_INDEX], stats[WIS_INDEX], stats[CHA_INDEX]
 
+    print("------------------------------")
     print("You rolled the following stats:")
     print(f"Strength     (STR): {STR_roll}")
     print(f"Dexterity    (DEX): {DEX_roll}")
@@ -51,7 +53,7 @@ def generate_stats():
     print(f"Intelligence (INT): {INT_roll}")
     print(f"Wisdom       (WIS): {WIS_roll}")
     print(f"Charisma     (CHA): {CHA_roll}")
-    print()
+    print("------------------------------")
     return stats
 
 def roll_stat():
@@ -60,8 +62,8 @@ def roll_stat():
     die_3 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
     die_4 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
 
-    top_3_dice = sorted([die_1, die_2, die_3, die_4])[1:]
-    return top_3_dice[0] + top_3_dice[1] + top_3_dice[2]
+    top_3_dice = sorted([die_1, die_2, die_3, die_4])[REMOVE_LOWEST_DIE:]
+    return top_3_dice[DIE_1_INDEX] + top_3_dice[DIE_2_INDEX] + top_3_dice[DIE_3_INDEX]
 
 def statmod(stat):
     return (stat - 10) // 2
@@ -70,7 +72,7 @@ def get_equipment(chosen_class):
     with open('content/equipment.csv', encoding='utf-8-sig') as file:
         equipment = list(map(lambda line: line.strip().split(','), file))
     
-    return next((row for row in equipment if row[0].startswith(chosen_class)), None)[1:]
+    return next((row for row in equipment if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
 
 def pick_class(classes):
     chosen_class = input_check_quit("Please type in the class you would like to use with your stat spread: ")
@@ -85,7 +87,7 @@ def get_abilities(chosen_class):
     with open('content/abilities.csv', encoding='utf-8-sig') as file:
         abilities = list(map(lambda line: line.strip().split(','), file))
 
-    return next((row for row in abilities if row[0].startswith(chosen_class)), None)[1:]
+    return next((row for row in abilities if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
 
 def show_classes():
     with open('content/abilities.csv', encoding='utf-8-sig') as file:
@@ -122,17 +124,17 @@ def allocate_asi(stats):
                 increment_amount = PLUS_1
             match asis[i].upper():
                 case "STR":
-                    stats[STR] += increment_amount
+                    stats[STR_INDEX] += increment_amount
                 case "DEX":
-                    stats[DEX] += increment_amount
+                    stats[DEX_INDEX] += increment_amount
                 case "CON":
-                    stats[CON] += increment_amount
+                    stats[CON_INDEX] += increment_amount
                 case "INT":
-                    stats[INT] += increment_amount
+                    stats[INT_INDEX] += increment_amount
                 case "WIS":
-                    stats[WIS] += increment_amount
+                    stats[WIS_INDEX] += increment_amount
                 case "CHA":
-                    stats[CHA] += increment_amount
+                    stats[CHA_INDEX] += increment_amount
                 case _:
                     print(f"'{asis[i]}' is not valid stat name LEN 2 CHECK")
                     print('Please enter 2-3 valid stat names (STR, DEX, CON, INT, WIS, CHA)')
@@ -145,17 +147,17 @@ def allocate_asi(stats):
         for stat in asis:
             match stat.upper():
                 case "STR":
-                    stats[STR] += increment_amount
+                    stats[STR_INDEX] += increment_amount
                 case "DEX":
-                    stats[DEX] += increment_amount
+                    stats[DEX_INDEX] += increment_amount
                 case "CON":
-                    stats[CON] += increment_amount
+                    stats[CON_INDEX] += increment_amount
                 case "INT":
-                    stats[INT] += increment_amount
+                    stats[INT_INDEX] += increment_amount
                 case "WIS":
-                    stats[WIS] += increment_amount
+                    stats[WIS_INDEX] += increment_amount
                 case "CHA":
-                    stats[CHA] += increment_amount
+                    stats[CHA_INDEX] += increment_amount
                 case _:
                     print(f"'{asis}' is not valid stat name LEN 3 CHECK")
                     print('Please enter 2-3 valid stat names (STR, DEX, CON, INT, WIS, CHA)')
