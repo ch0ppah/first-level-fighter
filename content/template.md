@@ -11,14 +11,13 @@ WIS: @wis(@wism)
 CHA: @cha(@cham)
 
 ## Combat
-AC: @ac
-Initiative: @ini
+Initiative: @dex
 Speed: @spd
 Hit Point Maximum: @hpm
 Hit Dice: @die
 
 ## Skills
-Proficiency Bonus: @pro
+Proficiency Bonus: +2
 Acrobatics (DEX): @dex
 Animal handling (WIS): @wis
 Arcana (INT): @int
@@ -39,6 +38,12 @@ Stealth (DEX): @dex
 Survival (WIS): @wis
 
 Passive Perception: @ppr
+
+## Class Abilities
+@cab
+
+## @species Abilities
+@sab
 
 ## Equipment
 @eqp
