@@ -7,10 +7,6 @@ from constants import (
 
 )
 
-
-# 6: ??? Am i missing something
-# 7: Read in template doc, replace all tokens with corresponding values
-# 8: Save completed md file onto user's computer
 def write_sheet(character_info):
     species = character_info[SPECIES_INDEX]
     name = character_info[NAME_INDEX]
