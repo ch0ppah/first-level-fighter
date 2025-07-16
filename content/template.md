@@ -1,14 +1,14 @@
 # @name
-Fist-level @species @class
-Alignment: @alignment
+First-level @species @class
+Alignment: @ali
 
 ## Ability Scores & Modifiers
-STR: @str(@strm) ST: @strs
-DEX: @dex(@dexm) ST: @dexs
-CON: @con(@conm) ST: @cons
-INT: @int(@intm) ST: @ints
-WIS: @wis(@wism) ST: @wiss
-CHA: @cha(@cham) ST: @chas
+STR: @str(@strm)
+DEX: @dex(@dexm)
+CON: @con(@conm)
+INT: @int(@intm)
+WIS: @wis(@wism)
+CHA: @cha(@cham)
 
 ## Combat
 AC: @ac
@@ -19,24 +19,24 @@ Hit Dice: @die
 
 ## Skills
 Proficiency Bonus: @pro
-Acrobatics (DEX): @acr
-Animal handling (WIS): @ani
-Arcana (INT): @arc
-Athletics (STR): @ath
-Deception (CHA): @dec
-History (INT): @his
-Insight (WIS): @ins
-Intimidation (CHA): @aaa
-Investigation (INT): @inv
-Medicine (WIS): @med
-Nature (INT): @nat
-Perception (WIS): @eye
-Performance (CHA): @bow
-Persuasion (CHA): @pls
-Religion (INT): @god
-Sleight of Hand (DEX): @soh
-Stealth (DEX): @mgs
-Survival (WIS): sur
+Acrobatics (DEX): @dex
+Animal handling (WIS): @wis
+Arcana (INT): @int
+Athletics (STR): @str
+Deception (CHA): @cha
+History (INT): @int
+Insight (WIS): @wis
+Intimidation (CHA): @cha
+Investigation (INT): @int
+Medicine (WIS): @wis
+Nature (INT): @int
+Perception (WIS): @wis
+Performance (CHA): @cha
+Persuasion (CHA): @cha
+Religion (INT): @int
+Sleight of Hand (DEX): @dex
+Stealth (DEX): @dex
+Survival (WIS): @wis
 
 Passive Perception: @ppr
 
