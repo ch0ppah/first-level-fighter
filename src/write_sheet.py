@@ -28,5 +28,5 @@ def write_sheet(character_info):
     chosen_class = character_info[CLASS_INDEX]
     abilities = character_info[ABILITIES_INDEX]
     hit_dice = character_info[EQUIPMENT_INDEX][HIT_DICE_INDEX]
-    hit_points = character_info[EQUIPMENT_INDEX][HIT_POINTS_INDEX]
+    hit_points = character_info[EQUIPMENT_INDEX][HIT_POINTS_INDEX] + con_mod
     equipment = character_info[EQUIPMENT_INDEX][REMOVE_HP_INFO:]
