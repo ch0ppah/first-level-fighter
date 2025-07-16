@@ -4,15 +4,20 @@ from constants import (
     STR_INDEX, DEX_INDEX, CON_INDEX, INT_INDEX, WIS_INDEX, CHA_INDEX,
     ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND, SPECIES, PLUS_2, PLUS_1,
     REMOVE_CLASS_NAME, REMOVE_SPECIES_NAME, REMOVE_LOWEST_DIE,
-    DIE_1_INDEX, DIE_2_INDEX, DIE_3_INDEX
+    DIE_1_INDEX, DIE_2_INDEX, DIE_3_INDEX, ALIGN_LOWER_BOUND, ALIGN_HIGHER_BOUND
 )
+
+# TODO: TEST THAT ALIGNMENT AND SPECIES ABILITIES ARE GENERATED CORRECTLY
+# AFTER THAT YOU SHOULD FINALLY BE DONE MESSING AROUND WITH THIS FILE
 
 def generate():
     species, name = generate_name()
+    alignment = generate_alignment()
     stats = generate_stats()
     classes_list = show_classes()
     chosen_class = pick_class(classes_list)
-    abilities = get_abilities(chosen_class)
+    class_abilities = get_class_abilities(chosen_class)
+    species_abilities = get_species_abilities(species)
     equipment = get_equipment(chosen_class)
     prompt_for_asi()
     allocate_asi(stats)
@@ -23,7 +28,7 @@ def generate():
                  statmod(stats[WIS_INDEX]),
                  statmod(stats[CHA_INDEX])]
     
-    return [species, name, stats, stat_mods, chosen_class, abilities, equipment]
+    return [species, name,  alignment, stats, stat_mods, chosen_class, class_abilities, species_abilities, equipment]
 
 def generate_name():
     with open('content/names.csv', encoding='utf-8-sig') as file:
@@ -56,6 +61,19 @@ def generate_stats():
     print("------------------------------")
     return stats
 
+def generate_alignment():
+    alignment = None
+    law_v_chaos = ["Lawful", "Neutral", "Chaotic"]
+    good_v_evil = ["Good", "Neutral", "Evil"]
+    law_v_chaos_lean = law_v_chaos[random.randrange(ALIGN_LOWER_BOUND, ALIGN_HIGHER_BOUND)]
+    good_v_evil_lean = good_v_evil[random.randrange(ALIGN_LOWER_BOUND, ALIGN_HIGHER_BOUND)]
+
+    if law_v_chaos_lean == good_v_evil_lean:
+        alignment = "True Neutral"
+    else:
+        alignment = f"{law_v_chaos_lean} {good_v_evil_lean}"
+    return alignment
+
 def roll_stat():
     die_1 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
     die_2 = random.randrange(ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND)
@@ -68,12 +86,6 @@ def roll_stat():
 def statmod(stat):
     return (stat - 10) // 2
 
-def get_equipment(chosen_class):
-    with open('content/equipment.csv', encoding='utf-8-sig') as file:
-        equipment = list(map(lambda line: line.strip().split(','), file))
-    
-    return next((row for row in equipment if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
-
 def pick_class(classes):
     chosen_class = input_check_quit("Please type in the class you would like to use with your stat spread: ")
     print()
@@ -83,11 +95,23 @@ def pick_class(classes):
         print("Invalid class")
         return pick_class(classes)
 
-def get_abilities(chosen_class):
+def get_class_abilities(chosen_class):
     with open('content/abilities.csv', encoding='utf-8-sig') as file:
         abilities = list(map(lambda line: line.strip().split(','), file))
 
     return next((row for row in abilities if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
+
+def get_equipment(chosen_class):
+    with open('content/equipment.csv', encoding='utf-8-sig') as file:
+        equipment = list(map(lambda line: line.strip().split(','), file))
+    
+    return next((row for row in equipment if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
+
+def get_species_abilities(species):
+    with open('content/species_bonuses', encoding='utf-8-sig') as file:
+        species_abilities = list(map(lambda line: line.strip().split(','), file))
+
+    return next((row for row in species_abilities if row[0].startswith(species)), None)[REMOVE_SPECIES_NAME:]
 
 def show_classes():
     with open('content/abilities.csv', encoding='utf-8-sig') as file:
