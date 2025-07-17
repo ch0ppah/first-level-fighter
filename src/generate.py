@@ -7,12 +7,8 @@ from constants import (
     DIE_1_INDEX, DIE_2_INDEX, DIE_3_INDEX, ALIGN_LOWER_BOUND, ALIGN_HIGHER_BOUND
 )
 
-# TODO: TEST THAT ALIGNMENT AND SPECIES ABILITIES ARE GENERATED CORRECTLY
-# AFTER THAT YOU SHOULD FINALLY BE DONE MESSING AROUND WITH THIS FILE
-
 def generate():
-    species, name = generate_name()
-    alignment = generate_alignment()
+    species, name, alignment = generate_name()
     stats = generate_stats()
     classes_list = show_classes()
     chosen_class = pick_class(classes_list)
@@ -41,10 +37,12 @@ def generate_name():
 
     species = names[species_index][SPECIES]
     name = names[species_index][name_index]
+    alignment = generate_alignment()
     print("------------------------------")
     print(f"You are {name}, the {species}.")
+    print(f"Your alignment is {alignment}.")
     print()
-    return species, name
+    return species, name, alignment
 
 def generate_stats():
     stats = [roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat(), roll_stat()]
@@ -108,7 +106,7 @@ def get_equipment(chosen_class):
     return next((row for row in equipment if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
 
 def get_species_abilities(species):
-    with open('content/species_bonuses', encoding='utf-8-sig') as file:
+    with open('content/species_bonuses.csv', encoding='utf-8-sig') as file:
         species_abilities = list(map(lambda line: line.strip().split(','), file))
 
     return next((row for row in species_abilities if row[0].startswith(species)), None)[REMOVE_SPECIES_NAME:]
