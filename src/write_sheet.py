@@ -53,7 +53,7 @@ def fill_dict(character_info):
     size = species_abilities[SIZE_INDEX]
     speed = species_abilities[SPEED_INDEX]
     hit_dice_size = character_info[EQUIPMENT_INDEX][HIT_DICE_INDEX]
-    hit_points = character_info[EQUIPMENT_INDEX][HIT_POINTS_INDEX] + con_mod
+    hit_points = int(character_info[EQUIPMENT_INDEX][HIT_POINTS_INDEX]) + con_mod
     equipment = character_info[EQUIPMENT_INDEX][REMOVE_HP_INFO:]
     passive_perception = PASSIVE_PERCEPTION_BASE + wis_mod
 
