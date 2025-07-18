@@ -14,17 +14,19 @@ def write_sheet(character_info):
 
     final_lines = []
     for line in template:
-        for token, replacement in token_dict.items():
-            final_lines.append(line.replace(token, replacement))
-    #return final_lines
-
-    final_lines = []
-    for line in template:
         processed_line = line
         for token, replacement in token_dict.items():
-            processed_line = processed_line.replace(token, replacement)
+            if isinstance(replacement, list):
+                replacement_list = '\n'.join(str(item) for item in replacement)
+                processed_line = processed_line.replace(token, replacement_list)
+            else:
+                processed_line = processed_line.replace(token, str(replacement))
         final_lines.append(processed_line)
-    return final_lines
+
+    expanded_lines = []
+    for line in final_lines:
+        expanded_lines.extend(line.split('\n'))
+    return expanded_lines
 
 def fill_dict(character_info):
     species = character_info[SPECIES_INDEX]
@@ -62,12 +64,12 @@ def fill_dict(character_info):
         "@int" : int_score,
         "@wis" : wis_score,
         "@cha" : cha_score,
-        "@strm" : str_mod,
-        "@dexm" : dex_mod,
-        "@conm" : con_mod,
-        "@intm" : int_mod,
-        "@wism" : wis_mod,
-        "@cham" : cha_mod,
+        "@stm" : str_mod,
+        "@dem" : dex_mod,
+        "@com" : con_mod,
+        "@inm" : int_mod,
+        "@wim" : wis_mod,
+        "@chm" : cha_mod,
         "@spe" : species,
         "@name" : name,
         "@cla" : chosen_class,
@@ -78,7 +80,7 @@ def fill_dict(character_info):
         "@die" : hit_dice_size,
         "@ppr" : passive_perception,
         "@cab" : class_abilities,
-        "@sab" : species_abilities,
+        "@sab" : species_abilities[2:],
         "@eqp" : equipment
     }
     return token_dict

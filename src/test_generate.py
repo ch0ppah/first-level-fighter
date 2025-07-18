@@ -15,7 +15,7 @@ class TestGenerate(unittest.TestCase):
         with open('content/species_bonuses.csv', encoding='utf-8-sig') as file:
             species_bonuses = list(map(lambda line: line.strip().split(','), file))
         
-        alignments = ["Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral," "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil"]
+        alignments = ["Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil"]
         species, name, alignment, stats, stat_mods, chosen_class, class_abilities, species_abilities, equipment = generate()
         self.assertIn(alignment, alignments, f"{alignment} is not a valid alignment")
         self.assertIn(species, [row[0] for row in names], f"{species} is not a species in names.csv")
