@@ -1,20 +1,21 @@
 # @name
-First-level @species @class
+First-level @spe @cla
 Alignment: @ali
 
 ## Ability Scores & Modifiers
-STR: @str(@strm)
-DEX: @dex(@dexm)
-CON: @con(@conm)
-INT: @int(@intm)
-WIS: @wis(@wism)
-CHA: @cha(@cham)
+STR: @str (@strm)
+DEX: @dex (@dexm)
+CON: @con (@conm)
+INT: @int (@intm)
+WIS: @wis (@wism)
+CHA: @cha (@cham)
 
 ## Combat
 Initiative: @dex
 Speed: @spd
+Size: @siz
 Hit Point Maximum: @hpm
-Hit Dice: @die
+Hit Dice Size: @die
 
 ## Skills
 Proficiency Bonus: +2

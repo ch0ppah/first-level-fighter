@@ -1,9 +1,9 @@
-Dragonborn, Medium, 30, Draconic Ancestry, Breath Weapon, Damage Resistance, Languages: Common & Draconic
-Dwarf, Medium, 25, Darkvision, Dwarven Resilience, Dwarvven Combat Training, Tool Proficiency, Stonecunning, Languages: Common & Dwarvish
-Elf, Medium, 30, Darkvision, Fey Ancestry, Trance, Keen Senses, Languages: Common & Elven
-Gnome, Small, 25, Darkvision, Gnome Cunning, Languages: Common & Gnomish
-Half-Elf, Medium, 30, Darkvision, Fey Ancestry, Half-Elf Versatility: Skill Versatility | Elf Weapon Training | Cantrip | Fleet of Foot | Mask of the Wild | Drow Magic | Swim Speed, Languages: Common & Elven & Another language of your choice,
-Half-Orc, Medium, 30, Darkvision, Menacing, Relentless Endurance, Savage Attacks, Languages: Common & Orc
-Halfling, Small, 25, Lucky, Brave, Nimble, Languages: Common & Halfling
-Human, Medium, 30, Languages: Common & Another language of your choice
-Tiefling, Medium, 30, Darkvision, Hellish Resistance, Languages: Common & Infernal
+Dragonborn,Size: Medium,30,Draconic Ancestry,Breath Weapon,Damage Resistance,Languages: Common & Draconic
+Dwarf,Size: Medium,25,Darkvision,Dwarven Resilience,Dwarvven Combat Training,Tool Proficiency,Stonecunning,Languages: Common & Dwarvish
+Elf,Size: Medium,30,Darkvision,Fey Ancestry,Trance,Keen Senses,Languages: Common & Elven
+Gnome,Size: Small,25,Darkvision,Gnome Cunning,Languages: Common & Gnomish
+Half-Elf,Size: Medium,30,Darkvision,Fey Ancestry,Half-Elf Versatility: Skill Versatility | Elf Weapon Training | Cantrip | Fleet of Foot | Mask of the Wild | Drow Magic | Swim Speed, Languages: Common & Elven & Another language of your choice,
+Half-Orc,Size: Medium,30,Darkvision,Menacing,Relentless Endurance,Savage Attacks,Languages: Common & Orc
+Halfling,Size: Small,25,Lucky,Brave,Nimble,Languages: Common & Halfling
+Human,Size: Medium,30,Languages: Common & Another language of your choice
+Tiefling,Size: Medium,30,Darkvision,Hellish Resistance,Languages: Common & Infernal

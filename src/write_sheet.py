@@ -3,13 +3,30 @@ from constants import (
     STR_INDEX, DEX_INDEX, CON_INDEX, INT_INDEX, WIS_INDEX, CHA_INDEX,
     SPECIES_INDEX, NAME_INDEX, STATS_INDEX, MODS_INDEX, CLASS_INDEX,
     ABILITIES_INDEX, EQUIPMENT_INDEX, HIT_DICE_INDEX, HIT_POINTS_INDEX,
-    REMOVE_HP_INFO, ALIGNMENT_INDEX, SPECIES_ABILITIES_INDEX,
+    REMOVE_HP_INFO, ALIGNMENT_INDEX, SPECIES_ABILITIES_INDEX, SIZE_INDEX,
+    SPEED_INDEX, PASSIVE_PERCEPTION_BASE,
 
 )
 
-# TODO: Read in template.md. For each line, check for an @tag, then replace the tag with the correct information. Save the modified template to 'name_sheet_flf.md'.
-
 def write_sheet(character_info):
+    token_dict = fill_dict(character_info)
+    template = read_template('content/template.md')
+
+    final_lines = []
+    for line in template:
+        for token, replacement in token_dict.items():
+            final_lines.append(line.replace(token, replacement))
+    #return final_lines
+
+    final_lines = []
+    for line in template:
+        processed_line = line
+        for token, replacement in token_dict.items():
+            processed_line = processed_line.replace(token, replacement)
+        final_lines.append(processed_line)
+    return final_lines
+
+def fill_dict(character_info):
     species = character_info[SPECIES_INDEX]
     name = character_info[NAME_INDEX]
     alignment = character_info[ALIGNMENT_INDEX]
@@ -29,10 +46,45 @@ def write_sheet(character_info):
     cha_mod = character_info[MODS_INDEX][CHA_INDEX]
 
     chosen_class = character_info[CLASS_INDEX]
-    abilities = character_info[ABILITIES_INDEX]
+    class_abilities = character_info[ABILITIES_INDEX]
     species_abilities = character_info[SPECIES_ABILITIES_INDEX]
-    hit_dice = character_info[EQUIPMENT_INDEX][HIT_DICE_INDEX]
+    size = species_abilities[SIZE_INDEX]
+    speed = species_abilities[SPEED_INDEX]
+    hit_dice_size = character_info[EQUIPMENT_INDEX][HIT_DICE_INDEX]
     hit_points = character_info[EQUIPMENT_INDEX][HIT_POINTS_INDEX] + con_mod
     equipment = character_info[EQUIPMENT_INDEX][REMOVE_HP_INFO:]
+    passive_perception = PASSIVE_PERCEPTION_BASE + wis_mod
 
-    passive_perception = 10 + wis_mod
+    token_dict = {
+        "@str" : str_score,
+        "@dex" : dex_score,
+        "@con" : con_score,
+        "@int" : int_score,
+        "@wis" : wis_score,
+        "@cha" : cha_score,
+        "@strm" : str_mod,
+        "@dexm" : dex_mod,
+        "@conm" : con_mod,
+        "@intm" : int_mod,
+        "@wism" : wis_mod,
+        "@cham" : cha_mod,
+        "@spe" : species,
+        "@name" : name,
+        "@cla" : chosen_class,
+        "@ali" : alignment,
+        "@spd" : speed,
+        "@siz" : size,
+        "@hpm" : hit_points,
+        "@die" : hit_dice_size,
+        "@ppr" : passive_perception,
+        "@cab" : class_abilities,
+        "@sab" : species_abilities,
+        "@eqp" : equipment
+    }
+    return token_dict
+
+def read_template(filepath):
+    with open(filepath) as file:
+        lines_list = list(map(str.strip, file))
+
+    return lines_list
