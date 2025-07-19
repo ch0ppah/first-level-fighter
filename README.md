@@ -12,8 +12,10 @@ Then, you can run the program by running
 uv run flf
 ```
 
-If you have `pipx` installed, you can install FLF by running
+If you have `pip` or `pipx` installed, you can install FLF by running
 ```
+pip install first-level-fighter
+OR
 pipx install first-level-fighter
 ```
 Then, you can run the program by running
