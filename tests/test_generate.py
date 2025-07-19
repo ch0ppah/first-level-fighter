@@ -1,18 +1,18 @@
 import unittest
-from generate import (
+from first_level_fighter.generate import (
     generate,
     roll_stat
 )
 
 class TestGenerate(unittest.TestCase):
     def test_generate(self):
-        with open('content/names.csv', encoding='utf-8-sig') as file:
+        with open('src/first_level_fighter/content/names.csv', encoding='utf-8-sig') as file:
             names = list(map(lambda line: line.strip().split(','), file))
-        with open('content/abilities.csv', encoding='utf-8-sig') as file:
+        with open('src/first_level_fighter/content/abilities.csv', encoding='utf-8-sig') as file:
             classes = list(map(lambda line: line.strip().split(','), file))
-        with open('content/equipment.csv', encoding='utf-8-sig') as file:
+        with open('src/first_level_fighter/content/equipment.csv', encoding='utf-8-sig') as file:
             equipment_list = list(map(lambda line: line.strip().split(','), file))
-        with open('content/species_bonuses.csv', encoding='utf-8-sig') as file:
+        with open('src/first_level_fighter/content/species_bonuses.csv', encoding='utf-8-sig') as file:
             species_bonuses = list(map(lambda line: line.strip().split(','), file))
         
         alignments = ["Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil"]

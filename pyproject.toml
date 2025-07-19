@@ -2,8 +2,16 @@
 name = "first-level-fighter"
 version = "0.1.0"
 description = "DND 5E first-level character sheet generator"
+authors = [
+    {name = en, email = "nick0suna76@gmail.com"}
+]
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    
-]
+dependencies = []
+
+[project.scripts]
+flf = "first_level_fighter.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

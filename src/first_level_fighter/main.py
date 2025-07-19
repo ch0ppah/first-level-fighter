@@ -1,6 +1,6 @@
 import os
-from generate import generate
-from write_sheet import write_sheet
+from .generate import generate
+from .write_sheet import write_sheet
 
 def main():
     print("--- FIRST LEVEL FIGHTER ---")

@@ -1,5 +1,5 @@
-
-from constants import (
+from importlib import resources
+from .constants import (
     STR_INDEX, DEX_INDEX, CON_INDEX, INT_INDEX, WIS_INDEX, CHA_INDEX,
     SPECIES_INDEX, NAME_INDEX, STATS_INDEX, MODS_INDEX, CLASS_INDEX,
     ABILITIES_INDEX, EQUIPMENT_INDEX, HIT_DICE_INDEX, HIT_POINTS_INDEX,
@@ -10,7 +10,7 @@ from constants import (
 
 def write_sheet(character_info):
     token_dict = fill_dict(character_info)
-    template = read_template('content/template.md')
+    template = read_template()
 
     final_lines = []
     for line in template:
@@ -85,8 +85,7 @@ def fill_dict(character_info):
     }
     return token_dict
 
-def read_template(filepath):
-    with open(filepath) as file:
+def read_template():
+    with resources.open_text('first_level_fighter.content', 'template.md') as file:
         lines_list = list(map(str.strip, file))
-
     return lines_list

@@ -1,6 +1,7 @@
 import random
+from importlib import resources
 from sys import exit
-from constants import (
+from .constants import (
     STR_INDEX, DEX_INDEX, CON_INDEX, INT_INDEX, WIS_INDEX, CHA_INDEX,
     ROLL_LOWER_BOUND, ROLL_HIGHER_BOUND, SPECIES, PLUS_2, PLUS_1,
     REMOVE_CLASS_NAME, REMOVE_SPECIES_NAME, REMOVE_LOWEST_DIE,
@@ -27,7 +28,7 @@ def generate():
     return [species, name,  alignment, stats, stat_mods, chosen_class, class_abilities, species_abilities, equipment]
 
 def generate_name():
-    with open('content/names.csv', encoding='utf-8-sig') as file:
+    with resources.open_text('first_level_fighter.content', 'names.csv', encoding='utf-8-sig') as file:
         names = list(map(lambda line: line.strip().split(','), file))
     
     num_species = len(names)
@@ -94,25 +95,25 @@ def pick_class(classes):
         return pick_class(classes)
 
 def get_class_abilities(chosen_class):
-    with open('content/abilities.csv', encoding='utf-8-sig') as file:
+    with resources.open_text('first_level_fighter.content', 'abilities.csv', encoding='utf-8-sig') as file:
         abilities = list(map(lambda line: line.strip().split(','), file))
 
     return next((row for row in abilities if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
 
 def get_equipment(chosen_class):
-    with open('content/equipment.csv', encoding='utf-8-sig') as file:
+    with resources.open_text('first_level_fighter.content', 'equipment.csv', encoding='utf-8-sig') as file:
         equipment = list(map(lambda line: line.strip().split(','), file))
     
     return next((row for row in equipment if row[0].startswith(chosen_class)), None)[REMOVE_CLASS_NAME:]
 
 def get_species_abilities(species):
-    with open('content/species_bonuses.csv', encoding='utf-8-sig') as file:
+    with resources.open_text('first_level_fighter.content', 'species_bonuses.csv', encoding='utf-8-sig') as file:
         species_abilities = list(map(lambda line: line.strip().split(','), file))
 
     return next((row for row in species_abilities if row[0].startswith(species)), None)[REMOVE_SPECIES_NAME:]
 
 def show_classes():
-    with open('content/abilities.csv', encoding='utf-8-sig') as file:
+    with resources.open_text('first_level_fighter.content', 'abilities.csv', encoding='utf-8-sig') as file:
         classes = list(map(lambda line: line.strip().split(',')[0], file))
     print("Here are the classes you can select:")
     for clas in classes:

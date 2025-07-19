@@ -1,5 +1,5 @@
 import unittest
-from write_sheet import write_sheet
+from first_level_fighter.write_sheet import write_sheet
 
 class TestWriteSheet(unittest.TestCase):
     def test_write_sheet(self):
